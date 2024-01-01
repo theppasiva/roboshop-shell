@@ -16,6 +16,7 @@ VALIDATE(){
     if [ $1 -ne 0 ]
     then
         echo -e "$2 .... $R FAILED$N"
+        exit 1
     else
         echo -e "$2 .......$G Success$N"
     fi
@@ -35,17 +36,22 @@ VALIDATE $? "Disabling current nodejs"
 
 dnf module enable nodejs:18 -y &>> $LOGFILE
 
-VALIDATE $? "Enabling current nodejs" 
+VALIDATE $? "Enabling current nodejs:18" 
 
 dnf install nodejs -y &>> $LOGFILE
 
-VALIDATE $? "Installing nodejs" 
+VALIDATE $? "Installing nodejs:18" 
 
-useradd roboshop &>> $LOGFILE
+id roboshop
+if [ $? -ne 0 ]
+then
+    useradd roboshop 
+    VALIDATE $? "Creating roboshop user"
+else
+    echo -e "roboshop user already exist $Y Skipping $N"
+fi
 
-VALIDATE $? "Creating roboshop user" 
-
-mkdir /app &>> $LOGFILE
+mkdir -p /app &>> $LOGFILE
 
 VALIDATE $? "Creating app directory" 
 
