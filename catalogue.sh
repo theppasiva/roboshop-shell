@@ -29,69 +29,69 @@ else
     echo "you are root user"
 fi
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>> $LOGFILE
 
-VALIDATE $? "Disabling current nodejs" &>> $LOGFILE
+VALIDATE $? "Disabling current nodejs" 
 
-dnf module enable nodejs:18 -y
+dnf module enable nodejs:18 -y &>> $LOGFILE
 
-VALIDATE $? "Enabling current nodejs" &>> $LOGFILE
+VALIDATE $? "Enabling current nodejs" 
 
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGFILE
 
-VALIDATE $? "Installing nodejs" &>> $LOGFILE
+VALIDATE $? "Installing nodejs" 
 
-useradd roboshop
+useradd roboshop &>> $LOGFILE
 
-VALIDATE $? "Creating roboshop user" &>> $LOGFILE
+VALIDATE $? "Creating roboshop user" 
 
-mkdir /app
+mkdir /app &>> $LOGFILE
 
-VALIDATE $? "Creating app directory" &>> $LOGFILE
+VALIDATE $? "Creating app directory" 
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 
-VALIDATE $? "Download catalogue application" &>> $LOGFILE
+VALIDATE $? "Download catalogue application" 
 
 cd /app 
 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>> $LOGFILE
 
-VALIDATE $? "Unzipping catalogue" &>> $LOGFILE
+VALIDATE $? "Unzipping catalogue" 
 
-npm install 
+npm install &>> $LOGFILE
 
-VALIDATE $? "Installing dependencies" &>> $LOGFILE
+VALIDATE $? "Installing dependencies" 
 
 # use absloute path, because catalogue.service exists there
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service
+cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 
 VALIDATE $? "Copying catalogue service file" 
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE
 
-VALIDATE $? "Catalogue daemon-relod" &>> $LOGFILE
+VALIDATE $? "Catalogue daemon-relod" 
 
-systemctl enable catalogue
+systemctl enable catalogue &>> $LOGFILE
 
-VALIDATE $? "Enabling catalogue" &>> $LOGFILE
+VALIDATE $? "Enabling catalogue" 
 
-systemctl start catalogue
+systemctl start catalogue &>> $LOGFILE
 
-VALIDATE $? "Starting catalogue" &>> $LOGFILE
+VALIDATE $? "Starting catalogue" 
 
 cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
-VALIDATE $? "Copying mongodb repo" &>> $LOGFILE
+VALIDATE $? "Copying mongodb repo" 
 
-dnf install mongodb-org-shell -y
+dnf install mongodb-org-shell -y &>> $LOGFILE
 
-VALIDATE $? "Installing mongodb client" &>> $LOGFILE
+VALIDATE $? "Installing mongodb client" 
 
-mongo --host $MONGODB_HOST </app/schema/catalogue.js
+mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOGFILE
 
 
-VALIDATE $? "lOADING CATALOGUE DATA INTO MONGODB" &>> $LOGFILE
+VALIDATE $? "lOADING CATALOGUE DATA INTO MONGODB" 
 
 
 
