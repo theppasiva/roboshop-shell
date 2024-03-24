@@ -6,8 +6,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-
-MONGDB_HOST=mongodb.daws76s.online
+MONGDB_HOST=mongodb.shivarampractise.online
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -64,6 +63,6 @@ cp /home/centos/roboshop-shell/roboshop.conf /etc/nginx/default.d/roboshop.conf 
 
 VALIDATE $? "copied roboshop reverse proxy config"
 
-systemctl restart nginx 
+systemctl restart nginx &>> $LOGFILE
 
 VALIDATE $? "restarted nginx"
