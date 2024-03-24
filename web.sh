@@ -31,17 +31,23 @@ else
     echo "You are root user"
 fi # fi means reverse of if, indicating condition end
 
-dnf install nginx -y &>> $LOGFILE
+# dnf install nginx -y &>> $LOGFILE
  
-VALIDATE $? "Installing nginx"
+# VALIDATE $? "Installing nginx"
 
-systemctl enable nginx &>> $LOGFILE
+# systemctl enable nginx &>> $LOGFILE
 
-VALIDATE $? "Enable nginx" 
+# VALIDATE $? "Enable nginx" 
 
-systemctl start nginx &>> $LOGFILE
+# systemctl start nginx &>> $LOGFILE
 
-VALIDATE $? "Starting Nginx"
+# VALIDATE $? "Starting Nginx"
+
+dnf install nginx -y
+
+systemctl enable nginx
+
+systemctl start nginx
 
 rm -rf /usr/share/nginx/html/* &>> $LOGFILE
 
