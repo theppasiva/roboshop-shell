@@ -31,17 +31,6 @@ else
     echo "You are root user"
 fi # fi means reverse of if, indicating condition end
 
-# dnf install nginx -y &>> $LOGFILE
- 
-# VALIDATE $? "Installing nginx"
-
-# systemctl enable nginx &>> $LOGFILE
-
-# VALIDATE $? "Enable nginx" 
-
-# systemctl start nginx &>> $LOGFILE
-
-# VALIDATE $? "Starting Nginx"
 
 dnf install nginx -y
 
@@ -69,6 +58,4 @@ cp /home/centos/roboshop-shell/roboshop.conf /etc/nginx/default.d/roboshop.conf 
 
 VALIDATE $? "copied roboshop reverse proxy config"
 
-systemctl restart nginx &>> $LOGFILE
-
-VALIDATE $? "restarted nginx"
+systemctl restart nginx 
