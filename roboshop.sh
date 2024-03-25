@@ -7,6 +7,7 @@ INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipp
 
 for i in "${INSTANCES[@]}"
 do
+    echo "instance is: $i"
     if [ $i == "mongodb" ] || [ $i == "mysql" ] || [ $i == "shipping" ]
     then
         INSTANCE_TYPE="t3.small"
@@ -14,6 +15,7 @@ do
         INSTANCE_TYPE="t2.micro"
     fi
 
-    aws ec2 run-instances --image-id ami-0f3c7d07486cad139  --instance-type $INSTANCE_TYPE  --security-group-ids sg-072ef4397e9b05311
-
+    aws ec2 run-instances --image-id ami-0f3c7d07486cad139  --instance-type $INSTANCE_TYPE 
+    --security-group-ids sg-072ef4397e9b05311 --tag-specifications "ResourceType=instance,
+    Tags=[{Key=webserver,Value=$i}]"
 done
