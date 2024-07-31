@@ -1,8 +1,8 @@
 #!/bin/bash
-AMI=ami-0f3c7d07486cad139 #this keeps on changing
-SG_ID=sg-072ef4397e9b05311 #replace with your SG ID
+AMI=ami-0b4f379183e5706b9 #this keeps on changing
+SG_ID=sg-0c706bd2b03de6632 #replace with your SG ID
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
-ZONE_ID=Z10344631O8SNO4YY2NVK # replace your zone ID
+ZONE_ID=Z089408114ZY41XJ0Z5AL # replace your zone ID
 DOMAIN_NAME="shivarampractise.online"
 
 for i in "${INSTANCES[@]}"
